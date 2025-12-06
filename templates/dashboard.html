@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<h1 class="text-3xl font-bold mb-8">Organizer Dashboard</h1>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+    <a href="/dashboard/?view=all" class="p-6 rounded-xl shadow transition cursor-pointer
+   {% if view == 'all' %} bg-blue-50 border-2 border-blue-400 {% else %} bg-white hover:shadow-xl {% endif %}">
+        <h2 class="text-gray-500 text-sm uppercase">Total Events</h2>
+        <p class="text-3xl font-bold text-blue-600 mt-2">{{ total_events }}</p>
+    </a>
+
+    <a href="/dashboard/?view=upcoming" class="p-6 rounded-xl shadow transition cursor-pointer
+   {% if view == 'upcoming' %} bg-blue-50 border-2 border-blue-400 {% else %} bg-white hover:shadow-xl {% endif %}">
+        <h2 class="text-gray-500 text-sm uppercase">Upcoming Events</h2>
+        <p class="text-3xl font-bold text-green-600 mt-2">{{ upcoming_events }}</p>
+    </a>
+
+    <a href="/dashboard/?view=past" class="p-6 rounded-xl shadow transition cursor-pointer
+   {% if view == 'past' %} bg-blue-50 border-2 border-blue-400 {% else %} bg-white hover:shadow-xl {% endif %}">
+        <h2 class="text-gray-500 text-sm uppercase">Past Events</h2>
+        <p class="text-3xl font-bold text-red-600 mt-2">{{ past_events }}</p>
+    </a>
+
+    <div class="bg-white p-6 rounded-xl shadow">
+        <h2 class="text-gray-500 text-sm uppercase">Total Participants</h2>
+        <p class="text-3xl font-bold text-blue-600 mt-2">{{ total_participants }}</p>
+    </div>
+</div>
+
+<section class="mb-12">
+    <h2 class="text-xl font-semibold mb-4">Events Overview</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for event in events %}
+        <a href="/events/{{ event.id }}/">
+            <div class="bg-white p-5 rounded-xl shadow flex justify-between items-center hover:shadow-lg transition">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800">{{ event.name }}</h3>
+                    <p class="text-gray-500 text-sm mt-1">{{ event.date }} — {{ event.location }}</p>
+                </div>
+            </div>
+        </a>
+        {% empty %}
+        <p class="text-gray-500">No events found.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <h2 class="text-xl font-semibold mb-4">Today's Events</h2>
+    <div class="space-y-4">
+        {% for event in todays_events %}
+        <a href="/events/{{ event.id }}/">
+            <div class="bg-blue-50 p-5 rounded-xl shadow border-l-4 border-blue-500 hover:bg-blue-100 transition">
+                <h3 class="text-lg font-bold text-blue-700">{{ event.name }}</h3>
+                <p class="text-gray-600 text-sm mt-1">{{ event.date }} — {{ event.location }}</p>
+            </div>
+        </a>
+        {% empty %}
+        <p class="text-gray-500">No events scheduled for today.</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

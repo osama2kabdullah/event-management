@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Event Manager{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+
+<body class="bg-gray-50 font-sans text-gray-800">
+
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-blue-600 hover:text-blue-700 transition">Event Manager</a>
+            <div class="flex items-center space-x-6">
+                <ul class="flex space-x-4 font-medium">
+                    <li><a href="/dashboard/" class="hover:text-blue-600 transition">Dashboard</a></li>
+                    <li><a href="/events/" class="hover:text-blue-600 transition">Events</a></li>
+                    <li><a href="/participants/" class="hover:text-blue-600 transition">Participants</a></li>
+                    <li><a href="/categories/" class="hover:text-blue-600 transition">Categories</a></li>
+                </ul>
+                <form method="GET" action="{% url 'search_events' %}" class="flex">
+                    <input type="text" name="q" placeholder="Search events..."
+                        class="px-3 py-2 border border-gray-300 rounded-l-lg focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                        value="{{ request.GET.q|default:'' }}">
+                    <button type="submit"
+                            class="bg-blue-600 px-4 py-2 text-white rounded-r-lg hover:bg-blue-700 transition">
+                        Search
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <main style="min-height: 60vh;" class="max-w-7xl mx-auto mt-10 px-6">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="text-center py-6 text-gray-500 mt-12 border-t border-gray-200">
+        © 2025 Event Manager
+    </footer>
+
+</body>
+</html>
