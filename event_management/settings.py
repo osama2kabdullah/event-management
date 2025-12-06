@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-5nw%wdq1-%&52nagqzjbj%#a8u0-nuou&m-ep2%e5(p3p*ak8-
 DEBUG = True
 
 ALLOWED_HOSTS = [
-  '*.onrender.com',
+  'event-management-putj.onrender.com',
 ]
 
 
